@@ -7,7 +7,7 @@ namespace union_on_massive
   {
     static void Main(string[] args)
     {
-      List<double> s1 = new List<double>() {3, 4, 6, 8, 10};
+      List<double> s1 = new List<double>() {0, 3, 4, 8, 10};
       List<double> s2 = new List<double>() {1, 2, 3, 4, 5, 6};
       
       List<double> res = Union(s1, s2);
@@ -23,47 +23,35 @@ namespace union_on_massive
     {
       List<double> union = new List<double>();
 
-      int len1 = set1.Count;
-      int len2 = set2.Count;
-
-      int counter1 = 0;
-      int counter2 = 0;
-
-      while (counter1 != len1 || counter2 != len2)
+      while (set1.Count != 0 || set2.Count != 0)
       {
-        if (counter1 == len1)
+        if (set1.Count == 0)
         {
-          for (int i = counter2; i < len2; i++)
-          {
-            union.Add(set2[i]);
-          }
+          union.AddRange(set2);
           break;
         }
         
-        if (counter2 == len1)
+        if (set2.Count == 0)
         {
-          for (int i = counter1; i < len1; i++)
-          {
-            union.Add(set1[i]);
-          }
+          union.AddRange(set1);
           break;
         }
 
-        if (set1[counter1] < set2[counter2])
+        if (set1[0] < set2[0])
         {
-          union.Add(set1[counter1]);
-          counter1++;
+          union.Add(set1[0]);
+          set1.RemoveAt(0);
         }
-        else if (set1[counter1] > set2[counter2])
+        else if (set1[0] > set2[0])
         {
-          union.Add(set2[counter2]);
-          counter2++;
+          union.Add(set2[0]);
+          set2.RemoveAt(0);
         }
         else
         {
-          union.Add(set2[counter2]);
-          counter1++;
-          counter2++;
+          union.Add(set1[0]);
+          set1.RemoveAt(0);
+          set2.RemoveAt(0);
         }
       }
 
