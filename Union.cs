@@ -1,49 +1,37 @@
 using System.Collections.Generic;
 
-namespace union_on_massive
+namespace Union
 {
-  class Union
-  {
-    public List<double> Unite(List<double> set1,
-    List<double> set2)
+    class Union
     {
-      List<double> union = new List<double>();
+        public List<int> Unite(List<int> set1, List<int> set2)
+        {
+            // создание массива, склеенного из двух входных
+            List<int> joined = new List<int>(set1);
+            joined.AddRange(set2);
 
-      while (set1.Count != 0 || set2.Count != 0)
-      {
-        if (set1.Count == 0)
-        {
-          union.AddRange(set2);
-          set2.Clear();
-          break;
-        }
+            // общая длина массивов
+            int length = joined.Count;
 
-        if (set2.Count == 0)
-        {
-          union.AddRange(set1);
-          set1.Clear();
-          break;
-        }
+            // словарь для проверки элемента на вхождение
+            // и пустой итоговый массив
+            Dictionary<int, bool> isUsed = new Dictionary<int, bool>(length);
+            List<int> union = new List<int>();
 
-        if (set1[0] < set2[0])
-        {
-          union.Add(set1[0]);
-          set1.RemoveAt(0);
-        }
-        else if (set1[0] > set2[0])
-        {
-          union.Add(set2[0]);
-          set2.RemoveAt(0);
-        }
-        else
-        {
-          union.Add(set1[0]);
-          set1.RemoveAt(0);
-          set2.RemoveAt(0);
-        }
-      }
+            // заполнение словаря
+            for (int i = 0; i < length; i++) isUsed[joined[i]] = false;
 
-      return union;
+            // проверка каждого элемента на вхождение
+            for (int i = 0; i < length; i++)
+            {
+                if (isUsed[joined[i]] == false)
+                {
+                    union.Add(joined[i]);
+                    isUsed[joined[i]] = true;
+                }
+            }
+
+            return union;
+        }
     }
-  }
 }

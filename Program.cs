@@ -1,11 +1,12 @@
-﻿namespace union_on_massive
+﻿using BenchmarkDotNet.Running;
+
+namespace Union
 {
-  class Program
-  {
-    static void Main(string[] args)
+    class Program
     {
-      Test test = new Test();
-      test.Testing();
+        static void Main(string[] args)
+        {
+            var bench = BenchmarkRunner.Run<Benchmark>();
+        }
     }
-  }
 }
